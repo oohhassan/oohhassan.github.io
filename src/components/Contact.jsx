@@ -4,11 +4,36 @@ import { SectionTitle, FadeUp } from './Motion';
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+    setSending(true);
+    setError('');
+
+    const formData = new FormData(e.target);
+    formData.append('access_key', 'bd814da4-621c-4955-8035-4c016cec573f');
+
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setSubmitted(true);
+        e.target.reset();
+        setTimeout(() => setSubmitted(false), 4000);
+      } else {
+        setError('Something went wrong. Please try again.');
+      }
+    } catch {
+      setError('Network error. Please try again.');
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -68,11 +93,14 @@ export default function Contact() {
 
           <FadeUp delay={0.2}>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <input type="text" placeholder="Your Name" required className="w-full px-5 py-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-indigo-500/50 focus:bg-indigo-500/5 transition-all duration-300" />
-              <input type="email" placeholder="Your Email" required className="w-full px-5 py-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-indigo-500/50 focus:bg-indigo-500/5 transition-all duration-300" />
-              <textarea rows={5} placeholder="Your Message" required className="w-full px-5 py-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-gray-600 text-sm resize-y focus:outline-none focus:border-indigo-500/50 focus:bg-indigo-500/5 transition-all duration-300" />
-              <motion.button type="submit" whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }} className="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold hover:shadow-2xl hover:shadow-indigo-500/20 transition-shadow duration-300 cursor-pointer">
-                {submitted ? '✓ Message Sent!' : 'Send Message →'}
+              <input type="hidden" name="subject" value="New Portfolio Contact Message" />
+              <input type="hidden" name="from_name" value="Portfolio Website" />
+              <input type="text" name="name" placeholder="Your Name" required className="w-full px-5 py-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-indigo-500/50 focus:bg-indigo-500/5 transition-all duration-300" />
+              <input type="email" name="email" placeholder="Your Email" required className="w-full px-5 py-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-gray-600 text-sm focus:outline-none focus:border-indigo-500/50 focus:bg-indigo-500/5 transition-all duration-300" />
+              <textarea rows={5} name="message" placeholder="Your Message" required className="w-full px-5 py-3.5 rounded-xl bg-white/[0.03] border border-white/10 text-white placeholder-gray-600 text-sm resize-y focus:outline-none focus:border-indigo-500/50 focus:bg-indigo-500/5 transition-all duration-300" />
+              {error && <p className="text-red-400 text-sm">{error}</p>}
+              <motion.button type="submit" disabled={sending} whileHover={{ scale: 1.02, y: -2 }} whileTap={{ scale: 0.98 }} className="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold hover:shadow-2xl hover:shadow-indigo-500/20 transition-shadow duration-300 cursor-pointer disabled:opacity-60">
+                {sending ? 'Sending...' : submitted ? '✓ Message Sent!' : 'Send Message →'}
               </motion.button>
             </form>
           </FadeUp>
