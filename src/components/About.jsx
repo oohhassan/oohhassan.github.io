@@ -1,52 +1,60 @@
-import { SectionTitle, FadeUp } from './Motion';
+import { motion } from 'framer-motion';
+import { SectionTitle, FadeUp, SlideIn, HoverCard, FloatingElement } from './Motion';
+import { AboutBg } from './SectionBg';
 
 export default function About() {
+  const stats = [
+    { value: '2+', label: 'Years Experience' },
+    { value: '3+', label: 'Projects Delivered' },
+  ];
+
   return (
-    <section id="about" className="py-24 bg-[#0f0a1e] relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-600/5 rounded-full blur-3xl" />
+    <section id="about" className="py-24 bg-white dark:bg-[#0f172a] relative overflow-hidden">
+      <AboutBg />
+      <FloatingElement className="absolute top-10 right-10 w-72 h-72 bg-violet-500/5 rounded-full blur-3xl" duration={5} />
+      <FloatingElement className="absolute bottom-10 left-10 w-48 h-48 bg-indigo-500/5 rounded-full blur-3xl" duration={4} />
 
-      <div className="max-w-6xl mx-auto px-6 relative">
-        <SectionTitle>About Me</SectionTitle>
+      <div className="max-w-4xl mx-auto px-6 relative">
+        <SectionTitle>Why Work With Me</SectionTitle>
 
-        <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-12 items-center">
-          <FadeUp>
-            <div className="relative mx-auto">
-              <div className="w-56 h-56 md:w-64 md:h-64 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-violet-500/20 border border-white/10 flex items-center justify-center text-gray-500 text-sm overflow-hidden">
-                Your Photo
-              </div>
-              <div className="absolute -inset-3 rounded-2xl border border-indigo-500/20 -z-10" />
-            </div>
-          </FadeUp>
+        <SlideIn direction="left">
+          <div className="space-y-5">
+            <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-lg">
+              Your company needs someone who can take messy, scattered data and turn it into{' '}
+              <span className="text-violet-600 dark:text-violet-400 font-semibold">decisions that move the needle</span>.
+              That's exactly what I do. Using{' '}
+              <span className="text-slate-800 dark:text-white font-medium">Python, SQL, Excel, Power BI, Tableau, and Plotly</span>,
+              I build dashboards, automate reports, and create advanced interactive visualisations that uncover patterns your competitors miss.
+            </p>
+            <p className="text-slate-500 dark:text-slate-500 leading-relaxed">
+              I don't just analyse data. I understand the business behind it. From tracking
+              how NFP, CPI, and interest rate decisions move markets, to knowing exactly when
+              volatility spikes before a Fed announcement, I bring the kind of{' '}
+              <span className="text-slate-800 dark:text-white font-medium">economic awareness</span>{' '}
+              that most analysts lack. Whether it's building an end-to-end analytics pipeline
+              or designing a real-time dashboard that reacts to market news, I deliver work
+              that's accurate, insightful, and ready to present to decision-makers.
+            </p>
+          </div>
+        </SlideIn>
 
-          <FadeUp delay={0.2}>
-            <div className="space-y-5">
-              <p className="text-gray-400 leading-relaxed text-lg">
-                I'm <span className="text-indigo-400 font-semibold">Hassan Ijaz</span>, a Data Analyst based in the
-                UK with a strong foundation in <span className="text-white font-medium">financial markets</span> and
-                <span className="text-white font-medium"> full-stack web development</span>. Currently pursuing my
-                Master's in Data Analytics at the University of Huddersfield.
-              </p>
-              <p className="text-gray-500 leading-relaxed">
-                I specialize in transforming complex datasets into clear, actionable insights using
-                Python, SQL, Power BI, and Tableau. With hands-on experience in crypto, forex, futures,
-                and options trading, I bring a unique blend of technical analysis and data storytelling
-                to every project.
-              </p>
-
-              <div className="grid grid-cols-3 gap-4 pt-4">
-                {[
-                  { value: '2+', label: 'Years Dev Exp.' },
-                  { value: '5+', label: 'Projects' },
-                  { value: 'MSc', label: 'Data Analytics' },
-                ].map((s) => (
-                  <div key={s.label} className="text-center p-4 rounded-xl bg-white/[0.03] border border-white/5">
-                    <div className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">{s.value}</div>
-                    <div className="text-xs text-gray-500 mt-1">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </FadeUp>
+        <div className="grid grid-cols-2 gap-4 pt-8 max-w-md mx-auto">
+          {stats.map((s, i) => (
+            <FadeUp key={s.label} delay={i * 0.15 + 0.2}>
+              <HoverCard className="text-center p-5 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 cursor-default">
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: false }}
+                  transition={{ delay: i * 0.15 + 0.4, type: 'spring', stiffness: 200, damping: 10 }}
+                  className="text-2xl font-bold bg-gradient-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent"
+                >
+                  {s.value}
+                </motion.div>
+                <div className="text-xs text-slate-500 dark:text-slate-500 mt-1">{s.label}</div>
+              </HoverCard>
+            </FadeUp>
+          ))}
         </div>
       </div>
     </section>

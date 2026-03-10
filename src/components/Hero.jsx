@@ -1,43 +1,122 @@
-import { motion } from 'framer-motion';
-import HeroScene from './HeroScene';
+import { motion } from "framer-motion";
+import HeroScene from "./HeroScene";
+
+/* stagger container */
+const container = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.18, delayChildren: 0.4 },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 50, filter: "blur(8px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const scaleFade = {
+  hidden: { opacity: 0, scale: 0.85 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0f0a1e]">
-      <div className="absolute inset-0 z-0"><HeroScene /></div>
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-transparent via-[#0f0a1e]/30 to-[#0f0a1e]" />
-      <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_center,transparent_0%,#0f0a1e_70%)] opacity-40" />
+    <section
+      id="hero"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-50 dark:bg-[#111b35]"
+    >
+      {/* 3D Background */}
+      <div className="absolute inset-0 z-0">
+        <HeroScene />
+      </div>
 
-      <div className="relative z-[2] text-center px-6 max-w-4xl">
-        <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
-          <span className="inline-block px-4 py-1.5 mb-6 text-xs font-semibold tracking-[3px] uppercase text-indigo-300 border border-indigo-500/30 rounded-full bg-indigo-500/10 backdrop-blur-sm">
-            Data Analyst &bull; Financial Markets
+      {/* Bottom fade */}
+      <div className="absolute inset-0 z-[1] pointer-events-none">
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-slate-50 dark:from-[#111b35] to-transparent" />
+      </div>
+
+      {/* Content */}
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        className="relative z-[2] text-center px-6 max-w-3xl mx-auto"
+      >
+        {/* Badge */}
+        <motion.div variants={scaleFade}>
+          <span className="inline-flex items-center gap-2.5 px-5 py-2 mb-8 text-[11px] font-semibold tracking-[3px] uppercase text-violet-600 dark:text-violet-300/90 border border-violet-300/40 dark:border-violet-500/25 rounded-full bg-white/60 dark:bg-white/[0.04] backdrop-blur-md shadow-sm">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-violet-500" />
+            </span>
+            Data Analyst
           </span>
         </motion.div>
 
-        <motion.h1 initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }} className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] mb-4">
-          Hassan <span className="bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent">Ijaz</span>
+        {/* Name */}
+        <motion.h1
+          variants={fadeUp}
+          className="text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold leading-[1.05] mb-5 tracking-tight"
+        >
+          <span className="text-slate-800 dark:text-white">Hassan </span>
+          <motion.span
+            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+            transition={{ repeat: Infinity, duration: 5, ease: "linear" }}
+            style={{ backgroundSize: "200% 200%" }}
+            className="bg-gradient-to-r from-violet-600 via-indigo-500 to-purple-500 dark:from-violet-400 dark:via-indigo-400 dark:to-purple-400 bg-clip-text text-transparent"
+          >
+            Ijaz
+          </motion.span>
         </motion.h1>
 
-        <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }} className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-          Turning <span className="text-indigo-300 font-medium">raw data</span> into actionable insights & building <span className="text-violet-300 font-medium">data-driven solutions</span> for smarter decisions.
+        {/* Tagline */}
+        <motion.p
+          variants={fadeUp}
+          className="text-base md:text-lg text-slate-500 dark:text-slate-400 max-w-xl mx-auto mb-10 leading-relaxed font-light"
+        >
+          Data Analyst who understands{" "}
+          <span className="text-violet-600 dark:text-violet-300 font-medium">
+            markets, data, and risk
+          </span>{" "}
+          I turn complex data into{" "}
+          <span className="text-indigo-600 dark:text-indigo-300 font-medium">
+            insights that drive real business decisions
+          </span>
+          .
         </motion.p>
 
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }} className="flex gap-4 justify-center flex-wrap">
-          <a href="#contact" className="group relative px-8 py-3.5 rounded-full font-semibold text-white bg-gradient-to-r from-indigo-600 to-violet-600 hover:shadow-2xl hover:shadow-indigo-500/30 transition-all duration-300 hover:-translate-y-0.5 overflow-hidden">
-            <span className="relative z-10">Get In Touch</span>
-          </a>
-          <a href="/Hassan_Ijaz_CV.pdf" download className="px-8 py-3.5 rounded-full font-semibold text-white border border-white/20 hover:border-indigo-400/50 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5 backdrop-blur-sm">
-            ↓ Download CV
-          </a>
+        {/* CTA Buttons */}
+        <motion.div
+          variants={fadeUp}
+          className="flex gap-4 justify-center flex-wrap"
+        >
+          <motion.a
+            href="#contact"
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.97 }}
+            className="px-8 py-3 rounded-full font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 transition-shadow duration-300"
+          >
+            Get In Touch
+          </motion.a>
+          <motion.a
+            href="#projects"
+            whileHover={{ scale: 1.05, y: -3 }}
+            whileTap={{ scale: 0.97 }}
+            className="px-8 py-3 rounded-full font-semibold text-slate-600 dark:text-slate-200 border border-slate-200 dark:border-white/15 hover:border-violet-400/50 dark:hover:border-violet-500/30 bg-white/50 dark:bg-white/[0.04] backdrop-blur-md hover:bg-violet-50/50 dark:hover:bg-violet-500/5 transition-all duration-300"
+          >
+            View Projects
+          </motion.a>
         </motion.div>
-
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5 }} className="absolute bottom-10 left-1/2 -translate-x-1/2">
-          <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2 }} className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center pt-2">
-            <motion.div className="w-1 h-2 bg-indigo-400 rounded-full" />
-          </motion.div>
-        </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 }

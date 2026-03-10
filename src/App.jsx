@@ -1,3 +1,4 @@
+import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -10,16 +11,18 @@ import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="font-sans text-white bg-[#0f0a1e] antialiased scroll-smooth selection:bg-indigo-500/30 selection:text-white">
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Education />
-      <Contact />
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <div className="font-sans antialiased scroll-smooth bg-slate-50 text-slate-900 dark:bg-[#111b35] dark:text-white transition-colors duration-300">
+        <Navbar />
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Experience />
+        <Education />
+        <Contact />
+        <Footer />
+      </div>
+    </ThemeProvider>
   );
 }
