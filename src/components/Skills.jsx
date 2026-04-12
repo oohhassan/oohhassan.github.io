@@ -71,17 +71,42 @@ const skills = [
   {
     name: "Data Visualization",
     category: "data",
-    desc: "Matplotlib, Seaborn, interactive chart design",
+    desc: "Matplotlib, Seaborn, Plotly interactive chart design",
   },
   {
     name: "Machine Learning",
     category: "data",
-    desc: "Model evaluation, feature engineering, supervised/unsupervised learning",
+    desc: "Model evaluation, feature engineering, supervised and unsupervised learning",
+  },
+  {
+    name: "Exploratory Data Analysis (EDA)",
+    category: "data",
+    desc: "Pattern discovery, anomaly detection, feature understanding",
+  },
+  {
+    name: "Data Cleaning",
+    category: "data",
+    desc: "Handling missing values, transformations, preprocessing pipelines",
+  },
+  {
+    name: "Time Series Analysis",
+    category: "data",
+    desc: "Forecasting, trend analysis, temporal data modelling",
+  },
+  {
+    name: "Predictive Analytics",
+    category: "data",
+    desc: "Building predictive models using machine learning algorithms",
   },
   {
     name: "Pandas",
     category: "data",
     desc: "DataFrames, data cleaning, transformation pipelines",
+  },
+  {
+    name: "NumPy",
+    category: "data",
+    desc: "Numerical computing, matrix operations, data processing",
   },
   {
     name: "Scikit-learn",
@@ -98,12 +123,22 @@ const skills = [
   {
     name: "Technical Analysis",
     category: "finance",
-    desc: "Chart patterns, indicators, price action trading",
+    desc: "Chart patterns, indicators, liquidity, price action trading",
   },
   {
     name: "Fundamental Analysis",
     category: "finance",
-    desc: "Macro/micro economics, valuation models",
+    desc: "Macro and micro economics, valuation models",
+  },
+  {
+    name: "Macroeconomic Analysis",
+    category: "finance",
+    desc: "Understanding economic indicators like CPI, NFP, GDP, interest rates",
+  },
+  {
+    name: "Risk Management",
+    category: "finance",
+    desc: "Position sizing, volatility analysis, capital preservation",
   },
   {
     name: "Crypto Markets",
@@ -113,7 +148,7 @@ const skills = [
   {
     name: "Forex & Futures",
     category: "finance",
-    desc: "Currency pairs, derivatives, risk management",
+    desc: "Currency pairs, derivatives, hedging strategies",
   },
 
   // Development
@@ -125,24 +160,24 @@ const skills = [
   {
     name: "PHP / Laravel",
     category: "dev",
-    desc: "RESTful APIs, MVC patterns, authentication",
+    desc: "RESTful APIs, MVC architecture, authentication systems",
   },
   {
     name: "MySQL",
     category: "dev",
-    desc: "Schema design, query optimisation, indexing strategies",
+    desc: "Database schema design, query optimisation, indexing strategies",
   },
   {
     name: "Tailwind CSS",
     category: "dev",
-    desc: "Utility-first styling, responsive design systems",
+    desc: "Utility-first styling and responsive design systems",
   },
 
   // Tools & Platforms
   {
     name: "Git / GitHub",
     category: "tools",
-    desc: "Version control, branching, team collaboration",
+    desc: "Version control, branching strategies, collaboration workflows",
   },
 ];
 

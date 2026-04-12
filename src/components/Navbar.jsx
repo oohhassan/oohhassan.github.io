@@ -14,7 +14,7 @@ function CVModal({ open, onClose }) {
   } else if (window.location.pathname.includes("/portfolio/")) {
     base = "/portfolio/";
   }
-  const pdfPath = base + "Hassan_CV.pdf";
+  const pdfPath = base + "HI_CV.pdf";
   return (
     <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/40 backdrop-blur-sm">
       <div className="bg-white dark:bg-slate-900 rounded-xl shadow-2xl max-w-3xl w-full h-[80vh] flex flex-col relative">
@@ -27,7 +27,7 @@ function CVModal({ open, onClose }) {
         </button>
         <iframe
           src={pdfPath}
-          title="Hassan CV PDF"
+          title="HI CV PDF"
           className="flex-1 w-full rounded-b-xl border-none"
           style={{ minHeight: "0", minWidth: "0" }}
         />
@@ -43,7 +43,7 @@ const links = [
   { label: "Experience", href: "#experience" },
   { label: "Education", href: "#education" },
   { label: "Contact", href: "#contact" },
-  { label: "View CV", href: "/HassanIjaz_CV.pdf", external: true, modal: true },
+  { label: "View CV", href: "/HI_CV.pdf", external: true },
 ];
 
 function ThemeToggle() {
